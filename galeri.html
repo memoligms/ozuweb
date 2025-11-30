@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeri - Özüdoğru Hafriyat Projeleri</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-orange: #F35D28;
+            --light-orange: #FFF0EB;
+            --dark-brown: #2B160F;
+            --bg-cream: #FDFBF7;
+            --text-dark: #1F1F1F;
+            --text-light: #FFFFFF;
+            --text-grey: #666666;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- GALERİ VE HEADER STİLLERİ --- */
+        .gallery-header {
+            background-color: var(--dark-brown);
+            color: white;
+            padding: 5rem 5%;
+            text-align: center;
+        }
+        
+        .gallery-header h1 {
+            font-size: 3.5rem; 
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+        .gallery-header p {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-bottom: 2rem; 
+        }
+        
+        .back-button {
+            display: inline-flex; 
+            align-items: center;
+            gap: 8px; 
+            margin-top: 1.5rem;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 20px;
+            border: 2px solid var(--primary-orange);
+            border-radius: 50px;
+            transition: 0.3s;
+            background-color: rgba(0,0,0,0.2); 
+        }
+        .back-button:hover {
+            background-color: var(--primary-orange);
+            border-color: var(--primary-orange);
+        }
+
+        /* 4'lü Grid Şeması */
+        .gallery-grid {
+            padding: 4rem 5%;
+            display: grid;
+            /* 4 kolona ayarlandı (ekran görüntüsüne uyum için) */
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 25px;
+        }
+
+        .gallery-item {
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: relative;
+            height: 250px;
+            cursor: pointer;
+            transition: transform 0.3s;
+            /* Görsel sığdırma için flex kaldırıldı */
+            display: block; 
+            background-color: #f0f0f0; 
+            color: #777;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        .gallery-item:hover {
+            transform: scale(1.03);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            /* GÖRSEL DÜZELTME: Kapsayıcıyı tamamen doldurur ve kırpar. */
+            object-fit: cover; 
+            transition: opacity 0.3s;
+            display: block; 
+        }
+        .gallery-item:hover img {
+            opacity: 0.8;
+        }
+
+        /* --- YENİ METİN BÖLÜMÜ STİLLERİ (SOLA HİZALANDI) --- */
+        .gallery-text-section {
+            padding: 4rem 5%;
+            background-color: #ffffff; 
+            border-top: 1px solid #eee;
+            text-align: left; 
+        }
+        .gallery-text-section h2 {
+            font-size: 2.5rem;
+            color: var(--primary-orange);
+            margin-bottom: 1rem;
+        }
+        /* Metin bozulmalarını gidermek için p etiketleri düzenlendi */
+        .gallery-text-section p {
+            max-width: 100%; 
+            margin-bottom: 1.5rem; /* Daha düzenli bir boşluk */
+            color: var(--text-dark);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        .gallery-text-section ul {
+            list-style: none;
+            max-width: 100%; 
+            text-align: left;
+            padding-left: 0; /* Sol boşluk temizlendi */
+            margin-left: 20px; /* Listeyi biraz içeri kaydır */
+        }
+        .gallery-text-section ul li {
+            margin-bottom: 10px;
+            font-size: 1rem;
+            color: var(--dark-brown);
+        }
+        .gallery-text-section ul li i {
+            color: var(--primary-orange);
+            margin-right: 10px;
+        }
+
+
+        /* --- FOOTER STİLLERİ --- */
+        footer {
+            background-color: var(--dark-brown);
+            color: #ccc;
+            padding: 4rem 5% 1rem 5%;
+            font-size: 0.9rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1.5fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-col h4 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .footer-col ul li a:hover { color: var(--primary-orange); }
+
+        .phone-highlight {
+            color: var(--primary-orange);
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: block;
+            margin: 15px 0;
+        }
+
+        .emergency-box {
+            border: 1px solid var(--primary-orange);
+            padding: 15px;
+            border-radius: 8px;
+            color: var(--primary-orange);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+            font-weight: 600;
+           
+        }
+
+        .copyright {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .social-icons a {
+            color: var(--primary-orange);
+            margin-left: 15px;
+            font-size: 1.2rem;
+            transition: 0.3s;
+        }
+        .social-icons a:hover { color: white; }
+
+        /* Mobil Responsive */
+        @media (max-width: 1024px) {
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr); 
+            }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr); 
+            }
+            .gallery-header h1 {
+                font-size: 2.5rem;
+            }
+            .gallery-item {
+                height: 200px;
+            }
+            .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .copyright { flex-direction: column; gap: 15px; text-align: center; }
+        }
+        @media (max-width: 480px) {
+             .gallery-grid {
+                grid-template-columns: 1fr; 
+                gap: 20px;
+            }
+            .gallery-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="gallery-header">
+        <h1>PROJELERİMİZ VE GALERİ</h1>
+        <p>Tamamladığımız profesyonel hafriyat projelerinden kareler.</p>
+        <a href="index.html" class="back-button">
+             <i class="fas fa-arrow-left"></i> Ana Sayfaya Dön
+        </a>
+    </header>
+
+    <section class="gallery-grid">
+        <div class="gallery-item">
+            <img src="galeri/fot8.jpg" alt="Proje 1 - Kazı Çalışması">
+        </div>
+        <div class="gallery-item">
+            <img src="galeri/fot2.jpg" alt="Proje 2 - İş Makinesi Faaliyeti">
+        </div>
+        <div class="gallery-item">
+            <img src="galeri/fot3.jpg" alt="Proje 3 - Toprak Tesviye">
+        </div>
+        <div class="gallery-item">
+            <img src="galeri/fot4.jpg" alt="Proje 4 - İnşaat Alanı">
+        </div>
+
+        <div class="gallery-item">
+            <img src="galeri/fot5.jpg" alt="Proje 5 - Hafriyat Ekibi">
+        </div>
+        <div class="gallery-item">
+            <img src="galeri/fot6.jpg" alt="Proje 6 - Arazi Düzenleme">
+        </div>
+        <div class="gallery-item">
+            <img src="galeri/fot1.jpg" alt="Proje 7 - Dolgu Malzemesi">
+        </div>
+        <div class="gallery-item">
+            <img src="galeri/fot9.jpg" alt="Proje 8 - Kazı Derinliği">
+        </div>
+
+        <div class="gallery-item">
+            <img src="galeri/fot7.jpg" alt="Proje 9 - Kepçe Çalışması">
+        </div>
+       
+    </section>
+    
+    <section class="gallery-text-section">
+        <h2>Hafriyat ve Taahhüt İşlerinde Güvenilir Çözüm Ortağınız</h2>
+        <p>Özüdoğru Hafriyat olarak, her projenin kendine has zorlukları olduğunu biliyoruz. Bu galeri, sadece güçlü ekipmanlarımızı değil, aynı zamanda **projelerimizi ne kadar titizlikle yürüttüğümüzü** de göstermektedir. Tecrübeli kadromuzla, en zorlu zemin koşullarında bile belirlenen zaman çizelgesine uygun ve çevreye duyarlı çözümler sunuyoruz. Fotoğraflarla desteklediğimiz bu alanda, yaptığımız işin kalitesini bizzat inceleyebilirsiniz.</p>
+        
+        <p>Temel amacımız, müşterilerimize **hızlı, güvenli ve ekonomik** hafriyat hizmetleri sunmaktır. Galeri bölümümüzde gördüğünüz tüm hizmetler, uzmanlık alanımız dahilindedir:</p>
+        
+        <ul>
+            <li><i class="fas fa-check-circle"></i> Bina Temel Kazıları ve Derin Kazılar</li>
+            <li><i class="fas fa-check-circle"></i> Havuz ve Peyzaj Öncesi Zemin Düzenlemeleri</li>
+            <li><i class="fas fa-check-circle"></i> Yıkım ve Molozların Lisanslı Alanlara Taşınması</li>
+            <li><i class="fas fa-check-circle"></i> Arazi Tesviye ve Dolgu İşleri</li>
+        </ul>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>ÖZÜDOĞRU HAFRİYAT</h3>
+                <p style="margin-top: 1rem; color: #ccc;">İzmir ve çevresinde profesyonel hafriyat hizmetleri</p>
+                <a href="tel:05427860966" class="phone-highlight">0542 786 09 66</a>
+                <p><a href="mailto:info@ozudogruhafriyat.com" style="color: #ccc; text-decoration: none;">info@ozudogruhafriyat.com</a></p>
+                <p style="margin-top: 5px; color: #ccc;">İzmir, Türkiye</p>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Hizmetlerimiz</h4>
+                <ul>
+                    <li><a href="index.html#hizmetler">Havuz Kazımı ve Dolgusu</a></li>
+                    <li><a href="index.html#hizmetler">Temel Kazım İşlemleri</a></li>
+                    <li><a href="index.html#hizmetler">Temel Dolgu Hizmetleri</a></li>
+                    <li><a href="index.html#hizmetler">Bahçe ve Arsa Düzenleme</a></li>
+                    <li><a href="index.html#hizmetler">Tarla Tesviye İşleri</a></li>
+                    <li><a href="index.html#hizmetler">Yıkım ve Moloz Taşıma</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <div class="emergency-box">
+                    <i class="fas fa-clock"></i> Acil Durumlar İçin 7/24 Ulaşılabilir
+                </div>
+            </div>
+        </div>
+
+        <div class="copyright">
+            <p>&copy; 2025 Özüdoğru Hafriyat - Tüm hakları saklıdır</p>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            <p style="font-size: 0.8rem; opacity: 0.5;">Readdy tarafından desteklenmektedir</p>
+        </div>
+    </footer>
+
+</body>
+</html>
