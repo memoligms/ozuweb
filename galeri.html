@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Galeri - Özüdoğru Hafriyat Projeleri</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -16,6 +16,11 @@
             --text-dark: #1F1F1F;
             --text-light: #FFFFFF;
             --text-grey: #666666;
+            
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+            --glass-dark-bg: rgba(26, 13, 8, 0.85);
         }
 
         * {
@@ -23,6 +28,11 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Inter', sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
         }
 
         body {
@@ -33,10 +43,39 @@
         }
 
         /* --- GALERİ VE HEADER STİLLERİ --- */
+        /* Header */
+        header#header {
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 1400px;
+            height: 80px; display: flex; justify-content: space-between; align-items: center; padding: 0 30px;
+            background: var(--glass-bg); backdrop-filter: blur(12px); border: 1px solid var(--glass-border);
+            border-radius: 50px; box-shadow: var(--glass-shadow); z-index: 1000; transition: all 0.4s ease;
+        }
+        header#header.scrolled { top: 0; width: 100%; max-width: 100%; border-radius: 0; border: none; border-bottom: 1px solid rgba(0,0,0,0.05); background: rgba(255, 255, 255, 0.95); }
+        .logo img { max-height: 50px; transition: all 0.4s ease; }
+        .nav-desktop { display: flex; gap: 30px; }
+        .nav-desktop a { font-weight: 500; color: var(--text-dark); font-size: 0.95rem; position: relative; transition: color 0.3s ease; }
+        .nav-desktop a::after { content: ''; position: absolute; width: 0%; height: 2px; bottom: -5px; left: 0; background-color: var(--primary-orange); transition: width 0.3s ease; }
+        .nav-desktop a:hover { color: var(--primary-orange); }
+        .nav-desktop a:hover::after { width: 100%; }
+        .header-btn { background: var(--dark-brown); color: white; padding: 10px 24px; border-radius: 50px; font-weight: 600; font-size: 0.9rem; transition: all 0.4s ease; display: inline-flex; align-items: center; gap: 8px; }
+        .header-btn:hover { background: var(--primary-orange); transform: translateY(-2px); box-shadow: 0 4px 15px rgba(243, 93, 40, 0.3); }
+        .menu-btn { display: none; background: none; border: none; font-size: 1.5rem; color: var(--text-dark); cursor: pointer; }
+
+        /* Mobile Menu */
+        .mobile-menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: var(--glass-dark-bg); backdrop-filter: blur(15px); z-index: 2000; opacity: 0; visibility: hidden; transition: all 0.4s ease; display: flex; align-items: center; justify-content: center; }
+        .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
+        .mobile-menu-close { position: absolute; top: 30px; right: 30px; background: none; border: none; color: white; font-size: 2rem; cursor: pointer; transition: transform 0.3s; }
+        .mobile-menu-close:hover { transform: rotate(90deg) scale(1.1); }
+        .mobile-nav-links { list-style: none; text-align: center; }
+        .mobile-nav-links li { margin: 25px 0; transform: translateY(30px); opacity: 0; transition: all 0.4s ease; }
+        .mobile-menu-overlay.active .mobile-nav-links li { transform: translateY(0); opacity: 1; }
+        .mobile-nav-links a { font-family: 'Outfit', sans-serif; font-size: 2.5rem; font-weight: 700; color: white; text-transform: uppercase; }
+        .mobile-nav-links a:hover { color: var(--primary-orange); }
+
         .gallery-header {
             background-color: var(--dark-brown);
             color: white;
-            padding: 5rem 5%;
+            padding: 180px 5% 5rem 5%;
             text-align: center;
         }
         
@@ -111,118 +150,215 @@
             opacity: 0.8;
         }
 
-        /* --- YENİ METİN BÖLÜMÜ STİLLERİ (SOLA HİZALANDI) --- */
+        /* --- YENİ METİN BÖLÜMÜ STİLLERİ --- */
         .gallery-text-section {
-            padding: 4rem 5%;
-            background-color: #ffffff; 
-            border-top: 1px solid #eee;
-            text-align: left; 
+            padding: 80px 5%;
+            background-color: var(--surface-white); 
+            display: flex;
+            justify-content: center;
+            position: relative;
         }
-        .gallery-text-section h2 {
-            font-size: 2.5rem;
+        .gallery-text-container {
+            max-width: 1400px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .gallery-text-content h2 {
+            font-size: 2.8rem;
+            color: var(--dark-brown);
+            margin-bottom: 20px;
+            line-height: 1.2;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+        }
+        .gallery-text-content h2 span {
             color: var(--primary-orange);
-            margin-bottom: 1rem;
         }
-        /* Metin bozulmalarını gidermek için p etiketleri düzenlendi */
-        .gallery-text-section p {
-            max-width: 100%; 
-            margin-bottom: 1.5rem; /* Daha düzenli bir boşluk */
-            color: var(--text-dark);
+        .gallery-text-content p {
+            color: var(--text-grey);
             font-size: 1.1rem;
+            margin-bottom: 20px;
             line-height: 1.8;
         }
-        .gallery-text-section ul {
-            list-style: none;
-            max-width: 100%; 
-            text-align: left;
-            padding-left: 0; /* Sol boşluk temizlendi */
-            margin-left: 20px; /* Listeyi biraz içeri kaydır */
+        .gallery-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
         }
-        .gallery-text-section ul li {
-            margin-bottom: 10px;
-            font-size: 1rem;
-            color: var(--dark-brown);
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: var(--bg-cream);
+            padding: 24px;
+            border-radius: 16px;
+            border: 1px solid rgba(0,0,0,0.03);
+            transition: all 0.3s ease;
         }
-        .gallery-text-section ul li i {
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-color: rgba(243, 93, 40, 0.2);
+        }
+        .feature-icon {
             color: var(--primary-orange);
-            margin-right: 10px;
+            font-size: 1.8rem;
+            background: white;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+        }
+        .feature-text {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 1.05rem;
+            font-family: 'Outfit', sans-serif;
         }
 
 
-        /* --- FOOTER STİLLERİ --- */
+        /* --- Footer --- */
         footer {
-            background-color: var(--dark-brown);
-            color: #ccc;
-            padding: 4rem 5% 1rem 5%;
-            font-size: 0.9rem;
+            background: #111;
+            color: #a0a0a0;
+            padding: 80px 5% 30px;
+            font-size: 0.95rem;
         }
 
         .footer-grid {
+            max-width: 1400px;
+            margin: 0 auto;
             display: grid;
-            grid-template-columns: 2fr 1fr 1.5fr;
-            gap: 3rem;
-            margin-bottom: 3rem;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
         }
 
-        .footer-col h4 {
+        .footer-brand h3 {
             color: white;
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
-            font-weight: 600;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
         }
 
-        .footer-col ul {
+        .footer-phones {
+            margin-top: 30px;
+        }
+
+        .phone-entry {
+            margin-bottom: 15px;
+        }
+
+        .phone-entry span {
+            display: block;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .phone-entry a {
+            font-size: 1.4rem;
+            color: white;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        
+        .phone-entry a:hover { color: var(--primary-orange); }
+
+        .footer-nav h4 {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-nav ul {
             list-style: none;
         }
 
-        .footer-col ul li {
-            margin-bottom: 10px;
+        .footer-nav ul li {
+            margin-bottom: 12px;
         }
 
-        .footer-col ul li a {
-            color: #ccc;
-            text-decoration: none;
-            transition: 0.3s;
-        }
-        .footer-col ul li a:hover { color: var(--primary-orange); }
-
-        .phone-highlight {
-            color: var(--primary-orange);
-            font-size: 1.8rem;
-            font-weight: 700;
-            display: block;
-            margin: 15px 0;
-        }
-
-        .emergency-box {
-            border: 1px solid var(--primary-orange);
-            padding: 15px;
-            border-radius: 8px;
-            color: var(--primary-orange);
-            display: flex;
+        .footer-nav ul li a {
+            transition: color 0.3s;
+            display: inline-flex;
             align-items: center;
-            gap: 10px;
-            margin-top: 20px;
-            font-weight: 600;
-           
         }
 
-        .copyright {
+        .footer-nav ul li a:hover {
+            color: var(--primary-orange);
+            transform: translateX(5px);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
             border-top: 1px solid rgba(255,255,255,0.1);
-            padding-top: 1.5rem;
+            padding-top: 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
         }
 
-        .social-icons a {
-            color: var(--primary-orange);
-            margin-left: 15px;
-            font-size: 1.2rem;
+        .socials {
+            display: flex;
+            gap: 15px;
+        }
+
+        .socials a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
             transition: 0.3s;
         }
-        .social-icons a:hover { color: white; }
+
+        .socials a:hover {
+            background: var(--primary-orange);
+            transform: translateY(-3px);
+        }
+        
+        /* --- Floating WhatsApp --- */
+        .floating-whatsapp {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 10px 20px rgba(37,211,102,0.3);
+            z-index: 999;
+            transition: 0.3s;
+            animation: pulse-green 2s infinite;
+        }
+
+        .floating-whatsapp:hover {
+            transform: scale(1.1) translateY(-5px);
+        }
+
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(37,211,102,0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(37,211,102,0); }
+            100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); }
+        }
+
 
         /* Mobil Responsive */
         @media (max-width: 1024px) {
@@ -244,6 +380,18 @@
             .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
             .copyright { flex-direction: column; gap: 15px; text-align: center; }
         }
+        @media (max-width: 900px) {
+            .gallery-text-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .gallery-features {
+                grid-template-columns: 1fr;
+            }
+            .gallery-text-content h2 {
+                font-size: 2.2rem;
+            }
+        }
         @media (max-width: 480px) {
              .gallery-grid {
                 grid-template-columns: 1fr; 
@@ -252,18 +400,63 @@
             .gallery-header h1 {
                 font-size: 2rem;
             }
+            .gallery-text-content h2 {
+                font-size: 1.8rem;
+            }
+        }
+        @media (max-width: 768px) {
+            header#header { height: 70px; padding: 0 20px; width: 95%; top: 10px; }
+            .nav-desktop, .header-btn { display: none; }
+            .menu-btn { display: block; }
         }
     </style>
 </head>
 <body>
 
-    <header class="gallery-header">
+    <!-- Mobile Menu -->
+    <div class="mobile-menu-overlay" id="mobileMenu">
+        <button class="mobile-menu-close" id="closeMenuBtn"><i class="fas fa-times"></i></button>
+        <ul class="mobile-nav-links">
+            <li><a href="index.html#anasayfa" class="menu-item-link">Anasayfa</a></li>
+            <li><a href="index.html#hizmetler" class="menu-item-link">Hizmetler</a></li>
+            <li><a href="index.html#hakkimizda" class="menu-item-link">Hakkımızda</a></li>
+            <li><a href="iletisim.html" class="menu-item-link">İletişim</a></li>
+            <li style="margin-top: 40px;">
+                <a href="tel:+905400097171" style="font-size: 1.2rem; color: var(--primary-orange);"><i class="fas fa-phone"></i> +90 540 009 71 71</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Header -->
+    <header id="header">
+        <a href="index.html" class="logo">
+            <img src="logo4.png" alt="Özüdoğru Hafriyat" onerror="this.outerHTML='<h2 style=\'font-family:inherit; font-size:1.5rem; font-weight:700; color:var(--text-dark);\'>ÖZÜDOĞRU<span style=\'color:var(--primary-orange)\'>.</span></h2>'">
+        </a>
+        
+        <nav class="nav-desktop">
+            <a href="index.html#anasayfa">Anasayfa</a>
+            <a href="index.html#hizmetler">Hizmetler</a>
+            <a href="galeri.html" style="color: var(--primary-orange);">Projeler</a>
+            <a href="index.html#hakkimizda">Hakkımızda</a>
+            <a href="iletisim.html">İletişim</a>
+        </nav>
+
+        <a href="tel:+905400097171" class="header-btn">
+            <i class="fas fa-phone-alt"></i> Bizi Arayın
+        </a>
+
+        <button class="menu-btn" id="openMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+    </header>
+
+    <section class="gallery-header">
         <h1>PROJELERİMİZ VE GALERİ</h1>
         <p>Tamamladığımız profesyonel hafriyat projelerinden kareler.</p>
         <a href="index.html" class="back-button">
              <i class="fas fa-arrow-left"></i> Ana Sayfaya Dön
         </a>
-    </header>
+    </section>
 
     <section class="gallery-grid">
         <div class="gallery-item">
@@ -295,62 +488,182 @@
         <div class="gallery-item">
             <img src="galeri/fot7.jpg" alt="Proje 9 - Kepçe Çalışması">
         </div>
+        
+        <!-- Yeni Eklenenler -->
+        <div class="gallery-item">
+            <img src="galeri/foto10.jpg" alt="Yeni Proje">
+        </div>
+        <div class="gallery-item">
+            <img src="galeri/foto11.jpg" alt="Yeni Proje">
+        </div>
+        <div class="gallery-item">
+            <img src="galeri/foto12.jpg" alt="Yeni Proje">
+        </div>
+        <div class="gallery-item">
+            <img src="galeri/foto13.jpg" alt="Yeni Proje">
+        </div>
+        <div class="gallery-item">
+            <img src="galeri/foto14.jpg" alt="Yeni Proje">
+        </div>
+        <div class="gallery-item">
+            <img src="galeri/WhatsApp Image 2026-04-05 at 13.41.32.jpeg" alt="Saha Çalışması">
+        </div>
+        <div class="gallery-item">
+            <img src="galeri/WhatsApp Image 2026-04-05 at 13.41.32 (1).jpeg" alt="Saha Çalışması">
+        </div>
+        <div class="gallery-item">
+            <img src="galeri/WhatsApp Image 2026-04-05 at 13.41.32 (2).jpeg" alt="Saha Çalışması">
+        </div>
+        <div class="gallery-item">
+            <img src="galeri/WhatsApp Image 2026-04-05 at 13.41.33.jpeg" alt="Saha Çalışması">
+        </div>
+        <div class="gallery-item">
+            <img src="galeri/WhatsApp Image 2026-04-05 at 13.41.33 (1).jpeg" alt="Saha Çalışması">
+        </div>
+        <div class="gallery-item">
+            <img src="galeri/WhatsApp Image 2026-04-05 at 13.41.33 (2).jpeg" alt="Saha Çalışması">
+        </div>
+        <div class="gallery-item">
+            <img src="galeri/WhatsApp Image 2026-04-05 at 13.41.33 (3).jpeg" alt="Saha Çalışması">
+        </div>
+        <div class="gallery-item">
+            <img src="galeri/WhatsApp Image 2026-04-05 at 13.41.33 (4).jpeg" alt="Saha Çalışması">
+        </div>
+        <div class="gallery-item">
+            <img src="galeri/WhatsApp Image 2026-04-05 at 13.41.33 (5).jpeg" alt="Saha Çalışması">
+        </div>
+        <div class="gallery-item">
+            <img src="galeri/WhatsApp Image 2026-04-05 at 13.41.34.jpeg" alt="Saha Çalışması">
+        </div>
+        <div class="gallery-item">
+            <img src="galeri/WhatsApp Image 2026-04-05 at 13.41.34 (1).jpeg" alt="Saha Çalışması">
+        </div>
+        <div class="gallery-item">
+            <img src="galeri/WhatsApp Image 2026-04-05 at 13.41.34 (2).jpeg" alt="Saha Çalışması">
+        </div>
+        <div class="gallery-item">
+            <img src="galeri/WhatsApp Image 2026-04-05 at 13.41.34 (3).jpeg" alt="Saha Çalışması">
+        </div>
        
     </section>
     
     <section class="gallery-text-section">
-        <h2>Hafriyat ve Taahhüt İşlerinde Güvenilir Çözüm Ortağınız</h2>
-        <p>Özüdoğru Hafriyat olarak, her projenin kendine has zorlukları olduğunu biliyoruz. Bu galeri, sadece güçlü ekipmanlarımızı değil, aynı zamanda **projelerimizi ne kadar titizlikle yürüttüğümüzü** de göstermektedir. Tecrübeli kadromuzla, en zorlu zemin koşullarında bile belirlenen zaman çizelgesine uygun ve çevreye duyarlı çözümler sunuyoruz. Fotoğraflarla desteklediğimiz bu alanda, yaptığımız işin kalitesini bizzat inceleyebilirsiniz.</p>
-        
-        <p>Temel amacımız, müşterilerimize **hızlı, güvenli ve ekonomik** hafriyat hizmetleri sunmaktır. Galeri bölümümüzde gördüğünüz tüm hizmetler, uzmanlık alanımız dahilindedir:</p>
-        
-        <ul>
-            <li><i class="fas fa-check-circle"></i> Bina Temel Kazıları ve Derin Kazılar</li>
-            <li><i class="fas fa-check-circle"></i> Havuz ve Peyzaj Öncesi Zemin Düzenlemeleri</li>
-            <li><i class="fas fa-check-circle"></i> Yıkım ve Molozların Lisanslı Alanlara Taşınması</li>
-            <li><i class="fas fa-check-circle"></i> Arazi Tesviye ve Dolgu İşleri</li>
-        </ul>
+        <div class="gallery-text-container">
+            <div class="gallery-text-content">
+                <h2>Hafriyat ve Taahhüt İşlerinde <span>Güvenilir Çözüm</span> Ortağınız</h2>
+                <p>Özüdoğru Hafriyat olarak, her projenin kendine has zorlukları olduğunu biliyoruz. Bu galeri, sadece güçlü makine parkurumuzu değil, aynı zamanda projelerimizi ne kadar titizlikle yürüttüğümüzü de göstermektedir.</p>
+                <p>Tecrübeli kadromuzla, en zorlu zemin koşullarında bile belirlenen zaman çizelgesine uygun ve çevreye duyarlı çözümler sunuyoruz. Yaptığımız işin kalitesini ve sahadaki profesyonelliğimizi fotoğraflarımızda bizzat inceleyebilirsiniz.</p>
+            </div>
+            <div class="gallery-features">
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-building"></i></div>
+                    <span class="feature-text">Bina Temel Kazıları</span>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-water"></i></div>
+                    <span class="feature-text">Havuz Kazı & Dolgu</span>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-truck-loading"></i></div>
+                    <span class="feature-text">Yıkım ve Moloz Taşıma</span>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-mountain"></i></div>
+                    <span class="feature-text">Arazi Tesviye İşleri</span>
+                </div>
+            </div>
+        </div>
     </section>
 
+    <!-- Footer -->
     <footer>
         <div class="footer-grid">
-            <div class="footer-col">
-                <h3>ÖZÜDOĞRU HAFRİYAT</h3>
-                <p style="margin-top: 1rem; color: #ccc;">İzmir ve çevresinde profesyonel hafriyat hizmetleri</p>
-                <a href="tel:05427860966" class="phone-highlight">0542 786 09 66</a>
-                <p><a href="mailto:info@ozudogruhafriyat.com" style="color: #ccc; text-decoration: none;">info@ozudogruhafriyat.com</a></p>
-                <p style="margin-top: 5px; color: #ccc;">İzmir, Türkiye</p>
+            <!-- Brand Column -->
+            <div class="footer-brand">
+                <h3>ÖZÜDOĞRU<span style="color: var(--primary-orange);">.</span></h3>
+                <p>Güçlü makine parkuru, tecrübeli operatörler ve uygun fiyat garantisiyle Didim'de hafriyatın güvenilir adresi.</p>
+                
+                <div class="footer-phones">
+                    <div class="phone-entry">
+                        <span>Doğan Özüdoğru</span>
+                        <a href="tel:+905400097171">+90 540 009 71 71</a>
+                    </div>
+                    <div class="phone-entry">
+                        <span>Osman Özüdoğru</span>
+                        <a href="tel:+905400097171">+90 540 009 71 71</a>
+                    </div>
+                </div>
             </div>
-            
-            <div class="footer-col">
-                <h4>Hizmetlerimiz</h4>
+
+            <!-- Links Column -->
+            <div class="footer-nav">
+                <h4>Hızlı Bağlantılar</h4>
                 <ul>
-                    <li><a href="index.html#hizmetler">Havuz Kazımı ve Dolgusu</a></li>
-                    <li><a href="index.html#hizmetler">Temel Kazım İşlemleri</a></li>
-                    <li><a href="index.html#hizmetler">Temel Dolgu Hizmetleri</a></li>
-                    <li><a href="index.html#hizmetler">Bahçe ve Arsa Düzenleme</a></li>
-                    <li><a href="index.html#hizmetler">Tarla Tesviye İşleri</a></li>
-                    <li><a href="index.html#hizmetler">Yıkım ve Moloz Taşıma</a></li>
+                    <li><a href="index.html#anasayfa"><i class="fas fa-chevron-right" style="font-size: 0.7rem; margin-right: 8px;"></i> Anasayfa</a></li>
+                    <li><a href="index.html#hizmetler"><i class="fas fa-chevron-right" style="font-size: 0.7rem; margin-right: 8px;"></i> Hizmetlerimiz</a></li>
+                    <li><a href="galeri.html"><i class="fas fa-chevron-right" style="font-size: 0.7rem; margin-right: 8px;"></i> Tamamlanan Projeler</a></li>
+                    <li><a href="index.html#hakkimizda"><i class="fas fa-chevron-right" style="font-size: 0.7rem; margin-right: 8px;"></i> Hakkımızda</a></li>
                 </ul>
             </div>
 
-            <div class="footer-col">
-                <div class="emergency-box">
-                    <i class="fas fa-clock"></i> Acil Durumlar İçin 7/24 Ulaşılabilir
+            <!-- Contact Box Column -->
+            <div class="footer-nav">
+                <h4>Vergiler & İletişim</h4>
+                <p style="margin-bottom: 10px;"><i class="fas fa-envelope" style="color: var(--primary-orange); width: 20px;"></i> info@ozudogruhafriyat.com</p>
+                <p style="margin-bottom: 20px;"><i class="fas fa-map-marker-alt" style="color: var(--primary-orange); width: 20px;"></i> Merkez, Didim / Aydın</p>
+                
+                <div style="background: rgba(243,93,40,0.1); border: 1px solid rgba(243,93,40,0.3); padding: 15px; border-radius: 12px; color: white;">
+                    <i class="fas fa-bolt" style="color: var(--primary-orange);"></i> Acil durumlar için 7/24 hizmetinizdeyiz.
                 </div>
             </div>
         </div>
 
-        <div class="copyright">
-            <p>&copy; 2025 Özüdoğru Hafriyat - Tüm hakları saklıdır</p>
-            <div class="social-icons">
+        <div class="footer-bottom">
+            <p>&copy; 2025 Özüdoğru Hafriyat. Tüm hakları saklıdır.</p>
+            <div class="socials">
                 <a href="#"><i class="fab fa-instagram"></i></a>
                 <a href="#"><i class="fab fa-facebook-f"></i></a>
                 <a href="#"><i class="fab fa-whatsapp"></i></a>
             </div>
-            <p style="font-size: 0.8rem; opacity: 0.5;">Readdy tarafından desteklenmektedir</p>
         </div>
     </footer>
+    
+    <!-- Floating WhatsApp button -->
+    <a href="https://wa.me/905400097171" class="floating-whatsapp" target="_blank" rel="noopener">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
+    <!-- Scripts -->
+    <script>
+        // Header Scroll Effect
+        const header = document.getElementById('header');
+        if (header) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+        }
+
+        // Mobile Menu Toggle
+        const mobileMenu = document.getElementById('mobileMenu');
+        const openBtn = document.getElementById('openMenuBtn');
+        const closeBtn = document.getElementById('closeMenuBtn');
+        const menuLinks = document.querySelectorAll('.menu-item-link');
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        }
+
+        if(openBtn) openBtn.addEventListener('click', toggleMenu);
+        if(closeBtn) closeBtn.addEventListener('click', toggleMenu);
+        
+        menuLinks.forEach(link => {
+            link.addEventListener('click', toggleMenu);
+        });
+    </script>
 </body>
 </html>
