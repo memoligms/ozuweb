@@ -10,10 +10,12 @@
     <style>
         :root {
             --primary-orange: #F35D28;
+            --primary-hover: #E04C1A;
             --light-orange: #FFF0EB;
-            --dark-brown: #2B160F;
+            --dark-brown: #1A0D08;
             --bg-cream: #FDFBF7;
-            --text-dark: #1F1F1F;
+            --surface-white: #FFFFFF;
+            --text-dark: #121212;
             --text-light: #FFFFFF;
             --text-grey: #666666;
             
@@ -21,6 +23,14 @@
             --glass-border: rgba(255, 255, 255, 0.5);
             --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
             --glass-dark-bg: rgba(26, 13, 8, 0.85);
+
+            --font-heading: 'Outfit', sans-serif;
+            --font-body: 'Inter', sans-serif;
+
+            --radius-md: 12px;
+            --radius-lg: 24px;
+            --radius-pill: 50px;
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         * {
@@ -74,21 +84,47 @@
 
         .gallery-header {
             background-color: var(--dark-brown);
+            background-image: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('galeri/WhatsApp Image 2026-04-07 at 01.17.20.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             color: white;
-            padding: 180px 5% 5rem 5%;
+            padding: 200px 5% 6rem 5%;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .badge {
+            background: rgba(243, 93, 40, 0.2);
+            color: var(--primary-orange);
+            padding: 8px 20px;
+            border-radius: var(--radius-pill);
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 20px;
+            display: inline-block;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(243, 93, 40, 0.3);
         }
         
         .gallery-header h1 {
-            font-size: 3.5rem; 
-            margin-bottom: 0.5rem;
+            font-family: var(--font-heading);
+            font-size: 4rem; 
+            margin-bottom: 1rem;
             font-weight: 800;
             text-transform: uppercase;
+            letter-spacing: -1px;
+            max-width: 900px;
         }
         .gallery-header p {
             font-size: 1.2rem;
-            opacity: 0.8;
-            margin-bottom: 2rem; 
+            opacity: 0.9;
+            margin-bottom: 2.5rem; 
+            max-width: 600px;
         }
         
         .back-button {
@@ -404,10 +440,26 @@
                 font-size: 1.8rem;
             }
         }
+        /* --- Animations --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+
         @media (max-width: 768px) {
             header#header { height: 70px; padding: 0 20px; width: 95%; top: 10px; }
             .nav-desktop, .header-btn { display: none; }
             .menu-btn { display: block; }
+            .gallery-header h1 { font-size: 2.5rem; }
+            .gallery-header { padding: 160px 5% 4rem 5%; }
         }
     </style>
 </head>
@@ -451,100 +503,52 @@
     </header>
 
     <section class="gallery-header">
-        <h1>PROJELERİMİZ VE GALERİ</h1>
-        <p>Tamamladığımız profesyonel hafriyat projelerinden kareler.</p>
-        <a href="index.html" class="back-button">
+        <span class="badge reveal">Didim'in En İyisi</span>
+        <h1 class="reveal delay-100">PROJELERİMİZ VE GALERİ</h1>
+        <p class="reveal delay-200">Tamamladığımız profesyonel hafriyat projelerinden kareler ve sahadaki tecrübemiz.</p>
+        <a href="index.html" class="back-button reveal delay-300">
              <i class="fas fa-arrow-left"></i> Ana Sayfaya Dön
         </a>
     </section>
 
     <section class="gallery-grid">
-        <div class="gallery-item">
-            <img src="galeri/fot8.jpg" alt="Proje 1 - Kazı Çalışması">
-        </div>
-        <div class="gallery-item">
-            <img src="galeri/fot2.jpg" alt="Proje 2 - İş Makinesi Faaliyeti">
-        </div>
-        <div class="gallery-item">
+        <div class="gallery-item reveal">
             <img src="galeri/fot3.jpg" alt="Proje 3 - Toprak Tesviye">
         </div>
-        <div class="gallery-item">
-            <img src="galeri/fot4.jpg" alt="Proje 4 - İnşaat Alanı">
-        </div>
-
-        <div class="gallery-item">
+        <div class="gallery-item reveal">
             <img src="galeri/fot5.jpg" alt="Proje 5 - Hafriyat Ekibi">
         </div>
-        <div class="gallery-item">
-            <img src="galeri/fot6.jpg" alt="Proje 6 - Arazi Düzenleme">
-        </div>
-        <div class="gallery-item">
+        <div class="gallery-item reveal">
             <img src="galeri/fot1.jpg" alt="Proje 7 - Dolgu Malzemesi">
         </div>
-        <div class="gallery-item">
-            <img src="galeri/fot9.jpg" alt="Proje 8 - Kazı Derinliği">
-        </div>
 
-        <div class="gallery-item">
-            <img src="galeri/fot7.jpg" alt="Proje 9 - Kepçe Çalışması">
-        </div>
-        
-        <!-- Yeni Eklenenler -->
-        <div class="gallery-item">
-            <img src="galeri/foto10.jpg" alt="Yeni Proje">
-        </div>
-        <div class="gallery-item">
-            <img src="galeri/foto11.jpg" alt="Yeni Proje">
-        </div>
-        <div class="gallery-item">
-            <img src="galeri/foto12.jpg" alt="Yeni Proje">
-        </div>
-        <div class="gallery-item">
-            <img src="galeri/foto13.jpg" alt="Yeni Proje">
-        </div>
-        <div class="gallery-item">
-            <img src="galeri/foto14.jpg" alt="Yeni Proje">
-        </div>
-        <div class="gallery-item">
-            <img src="galeri/WhatsApp Image 2026-04-05 at 13.41.32.jpeg" alt="Saha Çalışması">
-        </div>
-        <div class="gallery-item">
-            <img src="galeri/WhatsApp Image 2026-04-05 at 13.41.32 (1).jpeg" alt="Saha Çalışması">
-        </div>
-        <div class="gallery-item">
+        <div class="gallery-item reveal">
             <img src="galeri/WhatsApp Image 2026-04-05 at 13.41.32 (2).jpeg" alt="Saha Çalışması">
         </div>
-        <div class="gallery-item">
+        <div class="gallery-item reveal">
             <img src="galeri/WhatsApp Image 2026-04-05 at 13.41.33.jpeg" alt="Saha Çalışması">
         </div>
-        <div class="gallery-item">
+        <div class="gallery-item reveal">
             <img src="galeri/WhatsApp Image 2026-04-05 at 13.41.33 (1).jpeg" alt="Saha Çalışması">
         </div>
-        <div class="gallery-item">
+        <div class="gallery-item reveal">
             <img src="galeri/WhatsApp Image 2026-04-05 at 13.41.33 (2).jpeg" alt="Saha Çalışması">
         </div>
-        <div class="gallery-item">
+        <div class="gallery-item reveal">
             <img src="galeri/WhatsApp Image 2026-04-05 at 13.41.33 (3).jpeg" alt="Saha Çalışması">
         </div>
-        <div class="gallery-item">
+        <div class="gallery-item reveal">
             <img src="galeri/WhatsApp Image 2026-04-05 at 13.41.33 (4).jpeg" alt="Saha Çalışması">
         </div>
-        <div class="gallery-item">
-            <img src="galeri/WhatsApp Image 2026-04-05 at 13.41.33 (5).jpeg" alt="Saha Çalışması">
-        </div>
-        <div class="gallery-item">
+        <div class="gallery-item reveal">
             <img src="galeri/WhatsApp Image 2026-04-05 at 13.41.34.jpeg" alt="Saha Çalışması">
         </div>
-        <div class="gallery-item">
+        <div class="gallery-item reveal">
             <img src="galeri/WhatsApp Image 2026-04-05 at 13.41.34 (1).jpeg" alt="Saha Çalışması">
         </div>
-        <div class="gallery-item">
-            <img src="galeri/WhatsApp Image 2026-04-05 at 13.41.34 (2).jpeg" alt="Saha Çalışması">
-        </div>
-        <div class="gallery-item">
+        <div class="gallery-item reveal">
             <img src="galeri/WhatsApp Image 2026-04-05 at 13.41.34 (3).jpeg" alt="Saha Çalışması">
         </div>
-       
     </section>
     
     <section class="gallery-text-section">
@@ -584,10 +588,6 @@
                 <p>Güçlü makine parkuru, tecrübeli operatörler ve uygun fiyat garantisiyle Didim'de hafriyatın güvenilir adresi.</p>
                 
                 <div class="footer-phones">
-                    <div class="phone-entry">
-                        <span>Doğan Özüdoğru</span>
-                        <a href="tel:+905400097171">+90 540 009 71 71</a>
-                    </div>
                     <div class="phone-entry">
                         <span>Osman Özüdoğru</span>
                         <a href="tel:+905400097171">+90 540 009 71 71</a>
@@ -664,6 +664,20 @@
         menuLinks.forEach(link => {
             link.addEventListener('click', toggleMenu);
         });
+
+        // Reveal Animations Logic
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+
+        const revealOnScroll = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, revealOptions);
+
+        revealElements.forEach(el => revealOnScroll.observe(el));
     </script>
 </body>
 </html>

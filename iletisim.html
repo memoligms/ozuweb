@@ -74,9 +74,48 @@
         .mobile-nav-links a:hover { color: var(--primary-orange); }
 
         /* Setup page wrapper for contact separate page */
-        .page-header { background-color: var(--dark-brown); color: white; padding: 180px 5% 80px; text-align: center; position: relative; overflow: hidden; }
-        .page-header h1 { font-size: 4rem; margin-bottom: 20px; }
-        .page-header p { font-size: 1.2rem; color: #ccc; max-width: 600px; margin: 0 auto; }
+        .page-header { 
+            background-color: var(--dark-brown); 
+            color: white; 
+            padding: 200px 5% 100px; 
+            text-align: center; 
+            position: relative; 
+            overflow: hidden; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .badge {
+            background: rgba(243, 93, 40, 0.2);
+            color: var(--primary-orange);
+            padding: 8px 20px;
+            border-radius: var(--radius-pill);
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 20px;
+            display: inline-block;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(243, 93, 40, 0.3);
+        }
+
+        .page-header h1 { font-size: 4rem; margin-bottom: 20px; font-family: var(--font-heading); font-weight: 800; }
+        .page-header p { font-size: 1.2rem; color: #ccc; max-width: 600px; margin: 0 auto; opacity: 0.9; }
+
+        /* --- Animations --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
 
         /* Contact Section Modernized */
         .contact-section { background: var(--bg-cream); position: relative; padding: 100px 5%; display: flex; justify-content: center; }
@@ -188,13 +227,14 @@
     </header>
 
     <div class="page-header">
-        <h1>İletişim</h1>
-        <p>Projeniz için ücretsiz keşif ve teklif alın, uzman ekibimiz en kısa sürede size dönüş yapsın.</p>
+        <span class="badge reveal">Bize Ulaşın</span>
+        <h1 class="reveal delay-100">İLETİŞİM</h1>
+        <p class="reveal delay-200">Projeniz için ücretsiz keşif ve teklif alın, uzman ekibimiz en kısa sürede size dönüş yapsın.</p>
     </div>
 
     <!-- Contact Form Section -->
     <section class="contact-section">
-        <div class="contact-container">
+        <div class="contact-container reveal">
             
             <!-- Bilgi Paneli -->
             <div class="contact-info-panel">
@@ -204,7 +244,7 @@
                 <div class="info-item">
                     <div class="info-icon"><i class="fas fa-phone-alt"></i></div>
                     <div class="info-content">
-                        <h4>Doğan & Osman Özüdoğru</h4>
+                        <h4>Osman Özüdoğru</h4>
                         <a href="tel:+905400097171">+90 540 009 71 71</a>
                     </div>
                 </div>
@@ -277,10 +317,6 @@
                 <p>Güçlü makine parkuru, tecrübeli operatörler ve uygun fiyat garantisiyle Didim'de hafriyatın güvenilir adresi.</p>
                 <div class="footer-phones">
                     <div class="phone-entry">
-                        <span>Doğan Özüdoğru</span>
-                        <a href="tel:+905400097171">+90 540 009 71 71</a>
-                    </div>
-                    <div class="phone-entry">
                         <span>Osman Özüdoğru</span>
                         <a href="tel:+905400097171">+90 540 009 71 71</a>
                     </div>
@@ -338,6 +374,20 @@
         openBtn.addEventListener('click', toggleMenu);
         closeBtn.addEventListener('click', toggleMenu);
         menuLinks.forEach(l => l.addEventListener('click', toggleMenu));
+
+        // Reveal Animations Logic
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+
+        const revealOnScroll = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, revealOptions);
+
+        revealElements.forEach(el => revealOnScroll.observe(el));
     </script>
 </body>
 </html>
